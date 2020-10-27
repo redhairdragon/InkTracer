@@ -37,6 +37,7 @@ Plan 1: Train NN using Motion Data directly
 Plan 2: Transform motion data into 2D image and use existing well-trained CNN model to do recognization
 
 
-
+Few shot
+lstm, tcn
 
 
