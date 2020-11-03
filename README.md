@@ -1,4 +1,4 @@
-# InkTracer
+# ~~InkTracer~~
 
 Haoran Ma 405352274
 
@@ -36,8 +36,16 @@ Plan 1: Train NN using Motion Data directly
 
 Plan 2: Transform motion data into 2D image and use existing well-trained CNN model to do recognization
 
-
+**Neural Network Related Idea**
 Few shot
 lstm, tcn
 
+**Current Progress**
+
+- [x] ~~Purchasing Arduino Nano BLE sense~~
+- [x] ~~Setting up Arduino IDE~~
+- [x] ~~Proposing Project Idea~~
+- [x] ~~Reading IMU data from Serial~~
+- [x] ~~Enabling Python Data Reading~~
+- [ ] Visualizing IMU data for inspiration
 
