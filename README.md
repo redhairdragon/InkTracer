@@ -1,4 +1,4 @@
-# ~~InkTracer~~
+# InkTracer
 
 Haoran Ma 405352274
 
