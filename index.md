@@ -7,6 +7,8 @@ Currently, all handwriting input devices interact with a touch screen i.e. Apple
 To achieve this, IMU sensor is the key. The paper "Pentelligence" uses 6-axis IMU sensor and audio sensor and feed the data through layers of neural network to recognize **digits** only.
 This project is aimed to achieve a similar goal with a attempt to recognize letters and try different neural network architectures. 
 
+![example](/20201110_231520.jpg)
+
 ## 2. Technical approach covering data sets, algorithms, etc. and novelty of your approach
 We will collect data through IMU.
 Plan 1: 
