@@ -8,7 +8,7 @@ Shen Teng 104758168
 
 This project aims to recognize handwriting through motion sensor on Arduino Nano 33 BLE Sense. By attaching Arduino at the end of the pen-like object, users are able to input digits (hopefully letters if things go well) on their computer with a short delay after they perform handwriting.
 
-
+https://redhairdragon.github.io/InkTracer/
 
 **Goal**: recognize digits/letters* through the motion of a pen 
 
