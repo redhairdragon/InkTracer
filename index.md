@@ -1,4 +1,6 @@
 # InkTracer UCLA ECE M202 
+Haoran Ma 405352274
+Shen Teng 104758168
 
 ## 1. Overall project goals
 describe clearly what you are trying to do, why is it important, and how is it done today,
