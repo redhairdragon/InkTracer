@@ -45,7 +45,9 @@ void loop() {
     roll = atan2(ay, sqrt(ax * ax + az * az)) * RAD_TO_DEG;
 
     kalAngleX = kalmanX.getAngle(roll, gx, dt);
-    Serial.println(kalAngleX);
+
+    print('A',ax,ay,az);
+//    Serial.println(kalAngleX);
 
     //    Serial.print("PITCH: ");
     //    Serial.println(pitch);
@@ -54,7 +56,7 @@ void loop() {
     //    Serial.println(roll);
 }
 
-void print(char type, int x, int y, int z) {
+void print(char type, float x, float y, float z) {
     Serial.print(type);
     Serial.print(":\t");
     Serial.print(x);
