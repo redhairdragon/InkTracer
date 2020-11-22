@@ -1,6 +1,4 @@
-// chrome://flags #enable-experimental-web-platform-features
-
-async function connect() {
+async function setup() {
     port = await navigator.serial.requestPort();
     // - Wait for the port to open.
     await port.open({ baudRate: 9600 });
@@ -8,10 +6,31 @@ async function connect() {
     inputDone = port.readable.pipeTo(decoder.writable);
     inputStream = decoder.readable;
     let reader = await inputStream.getReader();
-    return reader;
+    readLoop(reader, (x) => {
+
+        if (x.length != 0) {
+            if (x[0] == "G") {
+                let angular_velocity = x.split("\t");
+                gx = parseInt(angular_velocity[1]);
+            }
+            if (x[0] == "M") {
+                let mag = x.split("\t");
+                mx = parseFloat(mag[1]);
+                mz = parseFloat(mag[2]);
+                my = parseFloat(mag[3]);
+                if (calibrated) this.gravity = new THREE.Vector3(mx, my, mz).applyQuaternion(gn_quaternion);
+                addCube();
+            }
+            if (x[0] == "A") {
+                let acc = x.split("\t");
+                ax = parseFloat(acc[1]);
+                az = parseFloat(acc[2]);
+                ay = -parseFloat(acc[3]);
+            }
+        }
+    });
 }
 
-let reader = await connect();
 
 async function readLoop(reader, fn) {
     var buffer = "";
@@ -31,4 +50,3 @@ async function readLoop(reader, fn) {
         }
     }
 }
-// await readLoop(reader, (x) => console.log(x));

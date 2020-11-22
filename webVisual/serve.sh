@@ -1,2 +1,2 @@
-#!/usr/bash
+#!/usr/bin/bash
 python2 -m SimpleHTTPServer
