@@ -1,3 +1,5 @@
+var cubes = [];
+
 function setLabel(labelMesh, Dir) {
     const label_scale = 30;
     if (labelMesh)
@@ -11,13 +13,16 @@ function getDir(x, y, z) {
 }
 
 function addCube() {
-    if (Math.abs(this.mx) < 0.05 && Math.abs(this.my) < 0.05 && Math.abs(this.mz) < 0.05) return;
-    var geometry = new THREE.BoxGeometry(2, 2, 2);
-    var material = new THREE.MeshBasicMaterial({ color: 0xFFFFFF });
-    var mesh = new THREE.Mesh(geometry, material);
+    if (show_mag_trace == false)
+        return;
+    const geometry = new THREE.BoxGeometry(.5, .5, .5);
+    const material = new THREE.MeshBasicMaterial({ color: 0xFFFFFF });
+    cubes.push(new THREE.Mesh(geometry, material));
+
     //scene is global
-    scene.add(mesh);
-    var current = new THREE.Vector3(this.mx, this.my, this.mz).normalize();
-    mesh.position.set(this.mx, this.my, this.mz);
+    scene.add(cubes[cubes.length - 1]);
+    // var current = new THREE.Vector3(this.mx, this.my, this.mz).normalize();
+    cubes[cubes.length - 1].position.set(this.mx * 3, this.my * 3, this.mz * 3);
+
 }
 

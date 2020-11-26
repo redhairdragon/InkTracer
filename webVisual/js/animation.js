@@ -41,8 +41,8 @@ fontLoader.load("./js/font/font.json", function (tex) {
     var accGeo = new THREE.TextGeometry('ACC', label_setting);
     var gravityGeo = new THREE.TextGeometry('GRAVITY', label_setting);
     xGeo.translate(length + 5, 0, 0);
-    yGeo.translate(0, length + 5, 0);
-    zGeo.translate(0, 0, length + 5);
+    zGeo.translate(0, length + 5, 0);
+    yGeo.translate(0, 0, length + 5);
     var textMaterial = new THREE.MeshBasicMaterial({ color: 0xc9f0e5 });
     this.x_label = new THREE.Mesh(xGeo, textMaterial);
     this.y_label = new THREE.Mesh(yGeo, textMaterial);
@@ -95,7 +95,7 @@ controls.update();
 function animate() {
     let currMagDirection = getDir(this.mx, this.my, this.mz);
     let currAccDirection = getDir(this.ax, this.ay, this.az);
-    let currGravityDirection = getDir(this.gravity.x, this.gravity.y, this.gravity.z);
+    let currGravityDirection = getDir(this.gravity.x, this.gravity.z, this.gravity.y);
     setArrow(magArrow, currMagDirection);
     setArrow(accArrow, currAccDirection);
     setArrow(gravityArrow, currGravityDirection);
