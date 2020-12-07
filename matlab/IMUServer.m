@@ -18,9 +18,13 @@ classdef IMUServer < WebSocketServer
             obj.Data.mag = [1,2,3];
             obj.Data.gyr = [3,4,5];
             obj.Data.acc = [6,7,8];
+            
         end
         function run(obj)
+            FUSE = ahrsfilter();
+            count = 0;
             while true
+                count=count+1;
                 [readings, t]= read_serial(obj.device);
                 if (t=="G")
                     obj.Data.gyr=readings;
@@ -30,6 +34,10 @@ classdef IMUServer < WebSocketServer
                     obj.Data.mag=(readings-obj.Data.b)*obj.Data.A;
                 else
                     disp("Should not shown");
+                end
+                if (count== 6)
+                    [obj.Data.orientations,~]  = FUSE(obj.Data.acc,obj.Data.gyr,obj.Data.mag);
+                    count =0;
                 end
             end
             
@@ -43,7 +51,8 @@ classdef IMUServer < WebSocketServer
         end
         
         function onTextMessage(obj,conn,message)
-            conn.send(jsonencode([obj.Data.acc,obj.Data.gyr,obj.Data.mag])); 
+            attitude_kf =  quat2eul(obj.Data.orientations,"ZYX");
+            conn.send(jsonencode([obj.Data.acc,obj.Data.gyr,obj.Data.mag,attitude_kf])); 
         end
         
         function onBinaryMessage(obj,conn,bytearray)

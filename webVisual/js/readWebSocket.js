@@ -1,5 +1,5 @@
 async function setup() {
-    var w_socket = new WebSocket("ws://192.168.1.9:30002");
+    var w_socket = new WebSocket("ws://192.168.1.9:5555");
     w_socket.onopen = (event) => {
         setInterval(() => {
             w_socket.send("1");

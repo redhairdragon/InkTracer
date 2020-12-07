@@ -7,7 +7,7 @@
 % disp(b);
 % disp(expmfs);
 % clear device
-server = IMUServer( hhhhc30002);
+server = IMUServer(5555);
 server.run();
 % delete(server);
 % clear server;

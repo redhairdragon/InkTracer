@@ -3,6 +3,8 @@ classdef SensorData  < handle
         mag;
         gyr;
         acc;
+        orientations;
+
         % mag calibration related
         calibrated;
         A;
