@@ -21,24 +21,23 @@ classdef IMUServer < WebSocketServer
             
         end
         function run(obj)
-            FUSE = ahrsfilter();
-            count = 0;
+            % FUSE = ahrsfilter();
+            FUSE = complementaryFilter('MagnetometerGain',0.9,"AccelerometerGain",0.2);
+            % FUSE = complementaryFilter();
+            viewer = HelperOrientationViewer('Title',{'AHRS Filter'});
             while true
-                count=count+1;
-                [readings, t]= read_serial(obj.device);
-                if (t=="G")
-                    obj.Data.gyr=readings;
-                elseif (t=="A")
-                    obj.Data.acc=readings;
-                elseif (t=="M")
-                    obj.Data.mag=(readings-obj.Data.b)*obj.Data.A;
-                else
-                    disp("Should not shown");
+                readings = read_serial(obj.device);
+                obj.Data.acc=readings(1:3);
+                obj.Data.gyr =readings(4:6);
+                obj.Data.mag=(readings(7:9)-obj.Data.b)*obj.Data.A;
+             
+                
+                rotators= FUSE(obj.Data.acc,obj.Data.gyr,obj.Data.mag);
+                % [obj.Data.orientations,~ ]=rotators;
+                for j = numel(rotators)
+                    viewer(rotators(j));
                 end
-                if (count== 6)
-                    [obj.Data.orientations,~]  = FUSE(obj.Data.acc,obj.Data.gyr,obj.Data.mag);
-                    count =0;
-                end
+                
             end
             
         end
