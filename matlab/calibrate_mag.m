@@ -1,5 +1,5 @@
 function [A,b,expmfs] = calibrate_mag(device)
-    calib_size =500;
+    calib_size =200;
     cnt=1;
     calib_data=zeros(calib_size,3);
     while (cnt<calib_size)

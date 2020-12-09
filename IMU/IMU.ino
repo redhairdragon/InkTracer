@@ -31,8 +31,8 @@ void loop() {
     }
 
     print('A', ax, ay, az, 0);
-    print('M', mx, my, mz, 0);
-    print('G', gx, gy, gz, 1);
+    print('G', gx, gy, gz, 0);
+    print('M', mx, my, mz, 1);
 }
 
 void print(char type, float x, float y, float z, boolean lf) {

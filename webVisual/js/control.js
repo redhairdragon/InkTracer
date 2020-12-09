@@ -10,5 +10,15 @@ document.addEventListener('keydown', (e) => {
         });
         cubes = [];
     }
+    if (e.code === "KeyZ") {
+        addPlane();
+    }
+    if (e.code === "KeyX") {
+        scene.remove(proj_plane_helper);
+        proj_plane_helper = undefined;
+    }
+    if (e.code === "KeyA") {
+        movePoints();
+    }
 });
 

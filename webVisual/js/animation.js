@@ -1,7 +1,7 @@
 const height = window.innerHeight - 30;
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(45, window.innerWidth / height, 1, 10000);
-const renderer = new THREE.WebGLRenderer();
+const renderer = new THREE.WebGLRenderer({ preserveDrawingBuffer: true });
 renderer.setSize(window.innerWidth, height);
 document.body.appendChild(renderer.domElement);
 
@@ -54,7 +54,7 @@ fontLoader.load("./js/font/font.json", function (tex) {
     scene.add(x_label);
     scene.add(y_label);
     scene.add(z_label);
-    scene.add(this.acc_label);
+    // scene.add(this.acc_label);
     scene.add(this.mag_label);
     scene.add(this.gravity_label);
 });
@@ -63,11 +63,11 @@ scene.add(y_axis);
 scene.add(z_axis);
 
 //add magnetometer arrow
-var magArrow = new THREE.ArrowHelper(new THREE.Vector3(1, 0, 0), origin, 50, 0xfcba03);
+var magArrow = new THREE.ArrowHelper(new THREE.Vector3(1, 0, 0), origin, 200, 0xfcba03);
 scene.add(magArrow);
 //add accelerometer arrow
 var accArrow = new THREE.ArrowHelper(new THREE.Vector3(1, 0, 0), origin, 50, 0x32a852);
-scene.add(accArrow);
+// scene.add(accArrow);
 // add gravity arrow
 var gravityArrow = new THREE.ArrowHelper(new THREE.Vector3(0, -1, 0), origin, 50, 0x4287f5);
 scene.add(gravityArrow);
@@ -97,11 +97,16 @@ function animate() {
     let currAccDirection = getDir(this.ax, this.ay, this.az);
     let currGravityDirection = getDir(this.gravity.x, this.gravity.z, this.gravity.y);
     setArrow(magArrow, currMagDirection);
-    setArrow(accArrow, currAccDirection);
+    setArrow(gravityArrow, this.gravity.normalize());
+    // setArrow(accArrow, currAccDirection);
+    // accArrow.setLength(Math.sqrt(this.ax ** 2, this.ay ** 2, this.az ** 2));
+
     setArrow(gravityArrow, currGravityDirection);
     setLabel(mag_label, currMagDirection);
     setLabel(acc_label, currAccDirection);
     setLabel(gravity_label, currGravityDirection);
+
+    // board.s
 
     requestAnimationFrame(animate);
     renderer.render(scene, camera);

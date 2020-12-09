@@ -12,6 +12,8 @@ function readings = read_serial(device)
         readings(n) = readings(n)/180*pi;
     end
     readings(7)=-readings(7);
+    readings(8)=readings(8);
+    readings(9)=readings(9);
     for n = 7:9
         readings(n) = readings(n)*100;
     end

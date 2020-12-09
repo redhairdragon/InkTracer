@@ -14,8 +14,14 @@ async function setup() {
         gy = data[4];
         gz = data[5];
         mx = data[6];
-        mz = data[7];
-        my = data[8];
+        my = data[7];
+        mz = data[8];
+        this.gravity.x = data[9];
+        this.gravity.y = data[10];
+        this.gravity.z = data[11];
+        if (Math.abs(ax) > 0.9)
+            console.log(ax);
+
         addCube();
     };
 

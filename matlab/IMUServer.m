@@ -15,25 +15,32 @@ classdef IMUServer < WebSocketServer
             obj@WebSocketServer(varargin{:});
             obj.device = serialport("/dev/ttyACM0",115200);
             [obj.Data.A,obj.Data.b,obj.Data.expmfs] = calibrate_mag(obj.device);
-            obj.Data.mag = [1,2,3];
-            obj.Data.gyr = [3,4,5];
-            obj.Data.acc = [6,7,8];
-            
+            obj.Data.mag = [0,0,0];
+            obj.Data.gyr = [0,0,0];
+            obj.Data.acc = [0,0,0];            
+            obj.Data.grav = [0,0,0];            
         end
+
         function run(obj)
-            % FUSE = ahrsfilter();
-            FUSE = complementaryFilter('MagnetometerGain',0.9,"AccelerometerGain",0.2);
-            % FUSE = complementaryFilter();
-            viewer = HelperOrientationViewer('Title',{'AHRS Filter'});
+            % FUSE = ahrsfilter('SampleRate', 120);
+            % FUSE = complementaryFilter('SampleRate', 120);
+            FUSE = complementaryFilter('SampleRate', 120,'MagnetometerGain',0.9,"AccelerometerGain",0.2);
+            viewer = HelperOrientationViewer('Title',{'CF'});
+            average_mag = zeros(3,3);
+
             while true
                 readings = read_serial(obj.device);
-                obj.Data.acc=readings(1:3);
+                % obj.Data.acc=readings(1:3);
+                obj.Data.grav = 0.9 * obj.Data.grav + 0.1 * readings(1:3);
+                obj.Data.acc = readings(1:3) - obj.Data.grav;
                 obj.Data.gyr =readings(4:6);
+                % obj.Data.mag=readings(7:9)
                 obj.Data.mag=(readings(7:9)-obj.Data.b)*obj.Data.A;
-             
                 
-                rotators= FUSE(obj.Data.acc,obj.Data.gyr,obj.Data.mag);
-                % [obj.Data.orientations,~ ]=rotators;
+                rotators= FUSE(readings(1:3),obj.Data.gyr,obj.Data.mag);
+                average_mag(1:2,:) = average_mag(2:3,:); 
+                average_mag(3,:) = obj.Data.mag;
+                obj.Data.mag = sum(average_mag)./3
                 for j = numel(rotators)
                     viewer(rotators(j));
                 end
@@ -42,6 +49,7 @@ classdef IMUServer < WebSocketServer
             
         end
     end
+
     
     methods (Access = protected)
 
@@ -50,8 +58,7 @@ classdef IMUServer < WebSocketServer
         end
         
         function onTextMessage(obj,conn,message)
-            attitude_kf =  quat2eul(obj.Data.orientations,"ZYX");
-            conn.send(jsonencode([obj.Data.acc,obj.Data.gyr,obj.Data.mag,attitude_kf])); 
+            conn.send(jsonencode([obj.Data.acc,obj.Data.gyr,obj.Data.mag,obj.Data.grav])); 
         end
         
         function onBinaryMessage(obj,conn,bytearray)
