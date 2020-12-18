@@ -40,7 +40,7 @@ classdef IMUServer < WebSocketServer
                 rotators= FUSE(readings(1:3),obj.Data.gyr,obj.Data.mag);
                 average_mag(1:2,:) = average_mag(2:3,:); 
                 average_mag(3,:) = obj.Data.mag;
-                obj.Data.mag = sum(average_mag)./3
+                obj.Data.mag = sum(average_mag)./3;
                 for j = numel(rotators)
                     viewer(rotators(j));
                 end
