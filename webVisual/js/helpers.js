@@ -25,7 +25,7 @@ function addCube() {
     if (ax > 0.9)
         upping = true;
 
-    if (ax < -0.5)
+    if (ax < -0.2)
         upping = false;
     if (upping) return;
 
