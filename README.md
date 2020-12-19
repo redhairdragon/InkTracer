@@ -12,6 +12,10 @@ Here is a picture how I bind the Arduino to a pencil using only tape.
 
 <img src="./readmeImages/20201110_231520.jpg" alt="example" style="zoom: 15%;" />
 
+Quick Demo https://youtu.be/tCS6XdM0C54
+
+Final Presentation https://youtu.be/1LgVE7xhWh0
+
 ## 2. Technical Approach  
 Plan 1: 
 We reconstruct the trajectory of the Arduino from the IMU sensor data in 3D space,  and then project the trajectory into 2D plane.
