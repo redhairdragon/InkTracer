@@ -22,7 +22,11 @@ Feed IMU sensor data directly into LSTM, TCN etc. And in this case, we need to t
 
 *Plan 2 is aborted due to the time limitation, lack of manpower, and Covid-19 pandemic situation.
 
-## 3. Implementation, experimental evaluation, success metrics, and key findings.
+Currently training Neural Network using sensor data directly is quite popular. I have this project in my mind for a long time. I always want to see if Plan 1 would be manageable since I really like the idea which decouples the task into two subtasks 1) trajectory reconstruction 2) image recognition where we can reuse what computer vision scientists have been doing.
+
+
+
+## 3. Implementation, result, and key findings.
 ### 3.1. Implementation
 
 #### 3.1.1 Visualization
@@ -103,19 +107,28 @@ Perform:
 
    <img src="readmeImages/8.png" style="zoom:50%;" />
 
-
+<img src="readmeImages/12.png" style="zoom:50%;" />
 
 #### 3.1.5 Neural Network
 
-In this work, for proof of concept I only test digit recognition. A very simple CNN does the work.
+In this work, for proof of concept I only test digit recognition. A very simple CNN does the work with 99% accuracy on MNIST dataset.
 
 <img src="readmeImages/10.png" style="zoom:50%;" />
 
+### 3.2 Results and Key Findings
 
+It is very hard for me to give out a systemic, thorough evaluation section here due to the time limitation and lack of manpower.
 
+In a less responsible wording, the method can generate very good prediction if user draws the digits slow and steady i.e. the image beneath shows the prediction result of digit "3". The result of correct index is orders of magnitude higher than the rest. 
 
+<img src="readmeImages/11.png" style="zoom:50%;" />
 
+But I also admit that it doesn't perform very well under these condition,
 
+1. User rotate the pen along the longer axis of the pen a lot. This generates highly distorted trajectory
+2. The angle of rotation in the last step of 2D transform is not set well. Since the NN is trained with MNIST where all the input images are not rotated, it doesn't handles rotated image well. 
+
+I believer incorporating finer DSP and sensor fusion techniques e.g. integrating accelerometer and gyroscope data to the trajectory reconstruction. This method can be better than directly training Neural Network using sensor data.
 
 
 
@@ -126,7 +139,21 @@ In this work, for proof of concept I only test digit recognition. A very simple 
 
 ## 5. Strengths and weakness, and future directions
 
+#### 5.1 Strengths
 
+1. Decouple the task in to two parts.  First, generate image of trajectory. Second, recognize image content.
+2. Focus on reconstruction of trajectory. Reuse existing Models from computer vision community. No need to train new neural network.
+
+#### 5.2 Weakness
+
+1. Current method generates distorted pattern which may affect prediction accuracy since it is generated only using magnetometer reading.
+2. Filters i.e. Low Pass Filter introduce latency.
+
+#### 5.3 Future Directions
+
+1. Integrate Accelerometer and Gyroscope Reading to fix distortion
+2. Optimize Response Time
+3. Fine Tuning the Neural Network Model using the handwriting screenshot.
 
 ## 6. Contributions of each team member
 ALL -- Shen Teng
