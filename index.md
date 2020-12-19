@@ -29,7 +29,7 @@ Feed IMU sensor data directly into LSTM, TCN etc. And in this case, we need to t
 
 First I built a framework to visualize the IMU sensor readings and trajectory of the pen tip using some computer graphics knowledges with the help of Web browser and 3D  graphic library[Three.js](https://threejs.org/).  This is extremely helpful during the prototype.
 
-![](/home/cocoa/InkTracer/readmeImages/1.gif)
+![](readmeImages/1.gif)
 
 
 
@@ -57,7 +57,7 @@ Notice that although these are done on my visualization framework. They are esse
 
 Step 1: Getting some dots in 3D space
 
-<img src="/home/cocoa/InkTracer/readmeImages/3.png" style="zoom:33%;" />
+<img src="readmeImages/3.png" style="zoom:33%;" />
 
 
 
@@ -67,17 +67,17 @@ As you can see, the readings will be on the surface of a sphere if we do the cal
 
 So I extend the unit magnetometer reading until it hits the plane and draw the points on the intersection.
 
-<img src="/home/cocoa/InkTracer/readmeImages/4.png" style="zoom:50%;" />
+<img src="readmeImages/4.png" style="zoom:50%;" />
 
 Step 3: Moving those dots to the origin
 
 Translate points to the plane (normal vector without distance offset). 
 
-<img src="/home/cocoa/InkTracer/readmeImages/5.png" style="zoom:50%;" />
+<img src="readmeImages/5.png" style="zoom:50%;" />
 
 Rotate those point on to the X-Y plane.
 
-<img src="/home/cocoa/InkTracer/readmeImages/6.png" style="zoom:50%;" />
+<img src="readmeImages/6.png" style="zoom:50%;" />
 
 Step 4: Take a ScreenShot
 
@@ -85,7 +85,7 @@ Hide other 3D objects, Connect dots with lines, Set the camera position and angl
 
 I have this.
 
-<img src="/home/cocoa/InkTracer/readmeImages/7.png" style="zoom:50%;" />
+<img src="readmeImages/7.png" style="zoom:50%;" />
 
 #### 3.1.4 2D Transformation
 
@@ -101,7 +101,7 @@ Perform:
 
 4. Apply rotation 
 
-   <img src="/home/cocoa/InkTracer/readmeImages/8.png" style="zoom:50%;" />
+   <img src="readmeImages/8.png" style="zoom:50%;" />
 
 
 
@@ -109,7 +109,7 @@ Perform:
 
 In this work, for proof of concept I only test digit recognition. A very simple CNN does the work.
 
-<img src="/home/cocoa/InkTracer/readmeImages/10.png" style="zoom:50%;" />
+<img src="readmeImages/10.png" style="zoom:50%;" />
 
 
 
@@ -125,10 +125,11 @@ In this work, for proof of concept I only test digit recognition. A very simple 
 ](https://dl.acm.org/doi/10.1145/3173574.3173705)
 
 ## 5. Strengths and weakness, and future directions
+
+
+
 ## 6. Contributions of each team member
 ALL -- Shen Teng
-
-
 
 ## 7. Section with links to PDF of  final presentation slides
 
